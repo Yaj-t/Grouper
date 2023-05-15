@@ -7,7 +7,7 @@ class User
 
     public function __construct()
     {
-        $config = new Config();
+        $config = new Config(); 
         $this->conn = $config->getConnection();
     }
 
