@@ -23,16 +23,16 @@ class UserDao {
     }
 
     public function getUserByEmail($email) {
-        $stmt = $this->conn->prepare("SELECT id, name, email, usertype FROM users WHERE email = ?");
+        $stmt = $this->conn->prepare("SELECT id, name, email, password, usertype FROM users WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $stmt->store_result();
 
         if ($stmt->num_rows > 0) {
-            $stmt->bind_result($id, $name, $email, $user_type);
+            $stmt->bind_result($id, $name, $email, $password, $user_type);
             $stmt->fetch();
 
-            return new User($id, $name, $email, "", $user_type);
+            return new User($id, $name, $email, $password, $user_type);
         } else {
             return null;
         }

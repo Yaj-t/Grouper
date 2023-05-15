@@ -7,7 +7,8 @@ class Event {
     private $date;
     private $location;
 
-    public function __construct($host, $name, $description, $date, $location) {
+    public function __construct($id =  null, $host, $name, $description, $date, $location) {
+        $this->id = $id;
         $this->host = $host;
         $this->name = $name;
         $this->description = $description;
