@@ -48,7 +48,7 @@ class EventDAO {
         $events = array();
         $result = $this->conn->query("SELECT * FROM events");
         while ($event = $result->fetch_object("Event")) {
-            $events[] = $event;
+            $events[] = $event;     
         }
         return $events;
     }
