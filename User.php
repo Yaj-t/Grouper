@@ -1,60 +1,36 @@
 <?php
-require_once('config.php');
+class User {
+    private $id;
+    private $name;
+    private $email;
+    private $password;
+    private $user_type;
 
-class User
-{
-    private $conn;
-
-    public function __construct()
-    {
-        $config = new Config(); 
-        $this->conn = $config->getConnection();
+    public function __construct($name, $email, $password, $user_type) {
+        $this->name = $name;
+        $this->email = $email;
+        $this->password = $password;
+        $this->user_type = $user_type;
     }
 
-    public function getUserByEmail($email)
-    {
-        $query =    "SELECT * FROM users WHERE email = ?";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bind_param('s', $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_assoc();
+    public function getId() {
+        return $this->id;
     }
 
-    public function createUser($name, $email, $password)
-    {
-        $hash = password_hash($password, PASSWORD_DEFAULT);
-        $query = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bind_param('sss', $name, $email, $hash);
-        $stmt->execute();
-        return $stmt->insert_id;
+    public function getName() {
+        return $this->name;
     }
 
-    public function login($email, $password)
-    {
-        $stmt = $this->conn->prepare("SELECT * FROM users WHERE email = ?");
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
+    public function getEmail() {
+        return $this->email;
+    }
 
-        if ($result->num_rows == 1) {
-            $row = $result->fetch_assoc();
+    public function getUserType() {
+        return $this->user_type;
+    }
 
-            if (password_verify($password, $row['password'])) {
-                // Password is correct, set session variables and redirect to dashboard
-                session_start();
-                $_SESSION['user_id'] = $row['id'];
-                $_SESSION['email'] = $row['email'];
-                header("Location: dashboard.php");
-                exit;
-            } else {
-                // Password is incorrect, return an error message
-                return "Incorrect email or password.";
-            }
-        } else {
-            // User not found, return an error message
-            return 0;
-        }
+    public function setPassword($password) {
+        $this->password = $password;
     }
 }
+?>
