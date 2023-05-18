@@ -65,6 +65,21 @@ class EventDAO {
         $stmt->close();
         return $events;
     }
+
+    public function searchEvents($searchText) {
+        $searchText = "%" . $searchText . "%";
+        $events = array();
+        $stmt = $this->conn->prepare("SELECT * FROM events WHERE name LIKE ? OR description LIKE ?");
+        $stmt->bind_param("ss", $searchText, $searchText);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        while ($event = $result->fetch_object("Event")) {
+            $events[] = $event;
+        }
+        $stmt->close();
+        return $events;
+    }
+    
 }
 
 ?>
