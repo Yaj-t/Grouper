@@ -16,7 +16,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($user != null) {
         //Check password
         $pass = password_hash($password, PASSWORD_DEFAULT);
-        echo"{$user->getPassword()} {$pass}";
         if (password_verify($password, $user->getPassword())) {
             // Save user data to session
             $_SESSION["user"] = $user;
