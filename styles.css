@@ -1,0 +1,102 @@
+body
+{
+    margin: 0%;
+    padding: 0%;
+    background-image: url(image.jpg);
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#header
+{
+    height: 65px;
+    color: white;
+    background-image: linear-gradient(to bottom,#004AAD,#E385EC);
+    font-size: large;
+    padding-top: 16px;
+    padding-bottom: 10px;
+}
+
+#nav
+{
+    display: flex;
+    margin-left: 5%;
+    padding: 3px;
+}
+
+.navBar
+{
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 6px;
+    padding-right: 6px;
+    font-size: 25px;
+    text-align: center;
+}
+
+#events
+{
+    border-left: 3px solid white;
+    border-right: 3px solid white;
+}
+
+#info
+{
+    margin-right: 45%;
+}
+
+#login
+{
+    margin-right: 10px;
+}
+
+.glow
+{
+    color: #fff;
+    text-shadow:
+    0 0 7px #fff,
+    0 0 10px #fff,
+    0 0 21px #fff,
+    0 0 42px #2EE6E3,
+    0 0 82px #2EE6E3,
+    0 0 92px #2EE6E3,
+    0 0 102px #2EE6E3,
+    0 0 151px #2EE6E3;
+    text-align: center;
+}
+
+#body
+{
+    text-align: center;
+}
+
+#title
+{
+    font-size: 150px;
+    margin-bottom: 5px;
+}
+
+#search
+{
+    align-self: center;
+    border-radius: 5px;
+    border: 0px;
+    padding: 5px;
+    width: 150px;
+}
+
+.button
+{
+    position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
