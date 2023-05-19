@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $pass = password_hash($password, PASSWORD_DEFAULT);
         if (password_verify($password, $user->getPassword())) {
             // Save user data to session
-            $_SESSION["user"] = $user;
+            $_SESSION["user"] = serialize($user);
             if($user->getUserType() == "user"){
                 echo"logged in as user";
                 header("Location: dashboard.php");

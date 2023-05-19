@@ -12,7 +12,12 @@ class EventDAO {
 
     public function createEvent(Event $event) {
         $stmt = $this->conn->prepare("INSERT INTO events (host, name, description, date, location) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("issss", $event->getHost(), $event->getName(), $event->getDescription(), $event->getDate(), $event->getLocation());
+        $host = $event->getHost();
+        $name = $event->getName();
+        $description = $event->getDescription();
+        $date = $event->getDate();
+        $location = $event->getLocation();
+        $stmt->bind_param("issss",$host , $name, $description, $date,$location);
         $stmt->execute();
         $event->setId($stmt->insert_id);
         $stmt->close();
