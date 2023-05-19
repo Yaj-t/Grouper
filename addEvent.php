@@ -1,8 +1,8 @@
 <?php
 require_once 'EventDAO.php';
 require_once 'User.php';
-// require_once 'UserDAO.php';
-// session_start();
+//require_once 'UserDAO.php';
+ session_start();
 // $dao = new UserDAO();
 // $user = $dao->getUserByEmail("carl@gmail.com");
 // $_SESSION["user"] = serialize($user);
