@@ -52,7 +52,7 @@ class EventUserDAO {
     $stmt->close();
     return $events;
 }
-
+  
 
   // Remove a row from the event_users table
   public function removeEventUser($event_id, $user_id) {

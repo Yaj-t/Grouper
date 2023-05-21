@@ -1,24 +1,47 @@
 <?php
 require_once 'EventDAO.php';
-require_once 'Event.php';
 require_once 'User.php';
 require_once 'EventUserDAO.php';
 session_start();
 
+// Check if the user is logged in
 if (!isset($_SESSION['user'])) {
     header("Location: login.php");
     exit;
 }
 
+// Get the logged-in user
 $user = unserialize($_SESSION['user']);
 
+// Create an instance of the EventDAO
 $eventDAO = new EventDAO();
 $eventUserDAO = new EventUserDAO();
 
-$createdEvents = $eventDAO->getEventsCreatedByUser($user->getId());
+// Get the list of events created by the user
+$createdEvents = $eventDAO->getEventsByHost($user->getId());
 
+// Get the list of events joined by the user
 $joinedEvents = $eventUserDAO->getEventsByUser($user->getId());
 
+// Handle unjoin event form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['unjoinEvent'])) {
+    $eventId = $_POST['eventId'];
+
+    // Remove the user from the event
+    $eventUserDAO->removeEventUser($eventId, $user->getId());
+}
+
+// Handle delete event form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteEvent'])) {
+    $eventId = $_POST['eventId'];
+
+    // Delete the event
+    $event = $eventDAO->getEventById($eventId);
+
+    if ($event && $event->getHost() === $user->getId()) {
+        $eventDAO->deleteEvent($event);
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -33,8 +56,7 @@ $joinedEvents = $eventUserDAO->getEventsByUser($user->getId());
 <body>
     <?php include'inHeader.html'?>
     <div id="body"> 
-        <h1>Event List</h1>
-        <h2>Events Created by You</h2>
+        <h1>Events Created by You</h1>
         <div class="event-list">
             <?php foreach ($createdEvents as $event): ?>
                 <div class="event">
@@ -42,11 +64,15 @@ $joinedEvents = $eventUserDAO->getEventsByUser($user->getId());
                     <p><?php echo $event->getDescription(); ?></p>
                     <p>Date: <?php echo $event->getDate(); ?></p>
                     <p>Location: <?php echo $event->getLocation(); ?></p>
-                    <p>You are the host of this event.</p>
+                    <form method="post">
+                        <input type="hidden" name="eventId" value="<?php echo $event->getId(); ?>">
+                        <button type="submit" name="deleteEvent">Delete</button>
+                    </form>
                 </div>
             <?php endforeach; ?>
         </div>
-        <h2>Events Joined by You</h2>
+
+        <h1>Events Joined by You</h1>
         <div class="event-list">
             <?php foreach ($joinedEvents as $event): ?>
                 <div class="event">
@@ -54,7 +80,10 @@ $joinedEvents = $eventUserDAO->getEventsByUser($user->getId());
                     <p><?php echo $event->getDescription(); ?></p>
                     <p>Date: <?php echo $event->getDate(); ?></p>
                     <p>Location: <?php echo $event->getLocation(); ?></p>
-                    <p>You have joined this event.</p>
+                    <form method="post">
+                        <input type="hidden" name="eventId" value="<?php echo $event->getId(); ?>">
+                        <button type="submit" name="unjoinEvent">Unjoin</button>
+                    </form>
                 </div>
             <?php endforeach; ?>
         </div>

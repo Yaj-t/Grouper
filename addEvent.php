@@ -42,26 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="header">
-        <div id="nav">
-            <div id="events" class="navBar">
-                <a class="glow" href="eventpage.php">Event List</a>
-                &nbsp;
-                <a class="glow" href="addEvent.php">Plan Event</a>
-            </div>
-            &nbsp;
-            <div id="info" class="navBar" style="margin-left: 25%;margin-right: 25%;">
-                <a class="glow" href="index.php">Groupr</a>
-            </div>
-            &nbsp;
-            <div id="login" class="navBar">
-                <a class="glow" href="login.php">Log In</a>
-                &nbsp;
-                <a class="glow" href="signup.php">Sign In</a>
-            </div>
-        </div>
-    </div>
-    <div>
+    <?php       
+        include 'inHeader.html';
+    ?>
+    <div id = "body">
         <form method="post" action="addEvent.php">
             <div id="contents">
                 <div >

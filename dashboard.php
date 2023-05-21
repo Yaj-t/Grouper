@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['joinEvent'])) {
         </form>
     </div>
 
-    <div id="contents">x
+    <div id="contents">
         <?php if (isset($_GET['event'])): ?>
             <h2 class="glow">Search Results</h2>
             <?php if (empty($searchResults)): ?>
