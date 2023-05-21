@@ -1,11 +1,13 @@
 <?php
 require_once 'EventDAO.php';
 require_once 'User.php';
-//require_once 'UserDAO.php';
- session_start();
+// require_once 'UserDAO.php';
+session_start();
 // $dao = new UserDAO();
 // $user = $dao->getUserByEmail("carl@gmail.com");
 // $_SESSION["user"] = serialize($user);
+
+$error = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Retrieve the form data
@@ -25,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($success) {
         echo "Event added successfully!";
     } else {
-        echo "Error adding event.";
+        $error = "Error adding event.";
     }
 }
 ?>
@@ -37,57 +39,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Event</title>
-    <link rel="stylesheet" href="addevent.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="topnav">
-        <div class="logo">
-            <a href="eventpage.html" class="Logo">Groupr</a>
-        </div>
-        <div class="searchbar">
-            <input type="text" placeholder="Search Events..">
-        </div>
-        <div class="links">
-            <a href="">Plan Event</a>
-            <a href="">FAQ</a>
-            <a href="">Report</a>
-            <a href="">Log In</a>
+    <div id="header">
+        <div id="nav">
+            <div id="events" class="navBar">
+                <a class="glow" href="eventpage.php">Event List</a>
+                &nbsp;
+                <a class="glow" href="addEvent.php">Plan Event</a>
+            </div>
+            &nbsp;
+            <div id="info" class="navBar" style="margin-left: 25%;margin-right: 25%;">
+                <a class="glow" href="index.php">Groupr</a>
+            </div>
+            &nbsp;
+            <div id="login" class="navBar">
+                <a class="glow" href="login.php">Log In</a>
+                &nbsp;
+                <a class="glow" href="signup.php">Sign In</a>
+            </div>
         </div>
     </div>
-    <div class="forms">
+    <div>
         <form method="post" action="addEvent.php">
-            <div class="rowdiv">
-                <div class="inputdiv">
+            <div id="contents">
+                <div >
                     <a>Name:<a>
                     <input type="text" class="inputform" name="myname"><br>
                 </div>
             </div>
-            <div class="rowdiv">
-                <div class="inputdiv">
+            <div id="contents">
+                <div>
                     <a>Location:<a>
                     <input type="text" class="inputform" name="mylocation"><br>
                 </div>
-                <div class="inputdiv">
+                <div>
                     <a>Date:<a>
                     <input type="date" class="inputform" name="mydate"><br>
                 </div>
             </div>
-            <div class="descdiv">
-                <div class="inputdiv">
+            <div id="contents">
+                <div>
                     <a>Description:<a>
                     <input type="text" class="description" name="mydescription"><br>
                 </div>
             </div>
-            <div class="buttondiv">
+            <div id="contents">
                 <button type="submit" class="submit" name="submit">Submit</button>
             </div>
         </form>
     </div>
-    <?php if (isset($error)) { ?>
-        <div class = "error-container">
+    <?php if (!empty($error)) { ?>
+        <div class="error-container">
             <p class="error-message"><?php echo $error; ?></p>
         </div>
-      
     <?php } ?>
 </body>
 </html>

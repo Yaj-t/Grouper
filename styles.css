@@ -1,7 +1,6 @@
-body
-{
-    margin: 0%;
-    padding: 0%;
+body {
+    margin: 0;
+    padding: 0;
     background-image: url(image.jpg);
     background-attachment: fixed;
     background-position: center;
@@ -10,93 +9,99 @@ body
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-#header
-{
+#header {
     height: 65px;
     color: white;
-    background-image: linear-gradient(to bottom,#004AAD,#E385EC);
+    background-image: linear-gradient(to bottom, #004AAD, #E385EC);
     font-size: large;
     padding-top: 16px;
     padding-bottom: 10px;
 }
 
-#nav
-{
+#nav {
     display: flex;
     margin-left: 5%;
     padding: 3px;
+    text-decoration: none;
 }
 
-.navBar
-{
+.navBar {
     padding-top: 3px;
     padding-bottom: 3px;
     padding-left: 6px;
     padding-right: 6px;
     font-size: 25px;
     text-align: center;
+    text-decoration: none;
 }
 
-#events
-{
+#events {
     border-left: 3px solid white;
     border-right: 3px solid white;
 }
 
-#info
-{
+#info {
     margin-right: 45%;
 }
 
-#login
-{
+#login {
     margin-right: 10px;
 }
 
-.glow
-{
+.glow {
     color: #fff;
-    text-shadow:
-    0 0 7px #fff,
-    0 0 10px #fff,
-    0 0 21px #fff,
-    0 0 42px #2EE6E3,
-    0 0 82px #2EE6E3,
-    0 0 92px #2EE6E3,
-    0 0 102px #2EE6E3,
-    0 0 151px #2EE6E3;
+    text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #2EE6E3, 0 0 82px #2EE6E3, 0 0 92px #2EE6E3, 0 0 102px #2EE6E3, 0 0 151px #2EE6E3;
+    text-decoration: none;
+}
+
+#body {
     text-align: center;
 }
 
-#body
-{
-    text-align: center;
-}
-
-#title
-{
+#title {
     font-size: 150px;
     margin-bottom: 5px;
+    text-align: center;
 }
 
-#search
-{
+#search {
     align-self: center;
     border-radius: 5px;
-    border: 0px;
-    padding: 5px;
-    width: 150px;
+    border: 0;
+    padding: 10px;
+    width: 350px;
 }
 
-.button
-{
+.button {
     position: absolute;
-	width: 1px;
-	height: 1px;
-	padding: 0;
-	overflow: hidden;
-	clip: rect(0, 0, 0, 0);
-	white-space: nowrap;
-	border: 0;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+#contents {
+    background-image: linear-gradient(to bottom, #004AAD, #E385EC);
+    padding: 10px;
+    margin: 10px;
+    text-align: start;
+    width: max-content;
+    border-radius: 5px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.error-container {
+  background-color: #ffcccc;
+  color: #ff0000;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.error-message {
+  font-weight: bold;
 }
 

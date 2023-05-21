@@ -78,12 +78,17 @@ class EventDAO {
         $stmt->bind_param("ss", $searchText, $searchText);
         $stmt->execute();
         $result = $stmt->get_result();
-        while ($event = $result->fetch_object("Event")) {
+    
+        while ($row = $result->fetch_assoc()) {
+            // Create an Event object with the fetched row data
+            $event = new Event($row['id'], $row['host'], $row['name'], $row['description'], $row['date'], $row['location']);
             $events[] = $event;
         }
+    
         $stmt->close();
         return $events;
     }
+    
     
 }
 

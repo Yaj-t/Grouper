@@ -29,9 +29,9 @@ if (isset($_GET['event'])) {
     <div id="header">
         <div id="nav">
             <div id="events" class="navBar">
-                <a class="glow" href="eventpage.php">Event List</a>
+                <a class="glow" href="login.php">Event List</a>
                 &nbsp;
-                <a class="glow" href="addEvent.php">Plan Event</a>
+                <a class="glow" href="login.php">Plan Event</a>
             </div>
             &nbsp;
             <div id="info" class="navBar">
@@ -41,13 +41,15 @@ if (isset($_GET['event'])) {
             </div>
             &nbsp;
             <div id="login" class="navBar">
-                <a class="glow" href="logout.php">Log out</a>
+                <a class="glow" href="login.php">Log in</a>
+                <a class="glow" href="sign up.php">Sign up</a>
+                
             </div>
         </div>
     </div>
     <div id="body"> 
         <p id="title" class="glow">Groupr</p>
-        <form name="search" method="get" action="dashboard.php">
+        <form name="search" method="get" action="index.php">
             <input id="search" type="text" placeholder="Search for events" name="event">
             <input type="submit" class="button">
         </form>

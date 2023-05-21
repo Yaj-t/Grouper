@@ -1,7 +1,7 @@
 <?php
 require_once('UserDAO.php');
 require_once('User.php');
-
+session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve user input from login form
@@ -18,14 +18,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $pass = password_hash($password, PASSWORD_DEFAULT);
         if (password_verify($password, $user->getPassword())) {
             // Save user data to session
-			session_start();
             $_SESSION["user"] = serialize($user);
             if($user->getUserType() == "user"){
                 echo"logged in as user";
-                header("Location: addEvent.php");
+                header("Location: dashboard.php");
             }else{
                 echo"logged in as admin";
-                header("Location: adminDashboard.php");
+                header("Location: index.php");
             }
             exit();
         } else {
