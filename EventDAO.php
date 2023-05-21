@@ -89,7 +89,28 @@ class EventDAO {
         return $events;
     }
 
-    
+    public function getEventsCreatedByUser($userId) {
+        $events = array();
+        $stmt = $this->conn->prepare("SELECT * FROM events WHERE host = ?");
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        while ($eventData = $result->fetch_assoc()) {
+            $event = new Event(
+                $eventData['id'],
+                $eventData['host'],
+                $eventData['name'],
+                $eventData['description'],
+                $eventData['date'],
+                $eventData['location']
+            );
+            $events[] = $event;
+        }
+        
+        $stmt->close();
+        return $events;
+    }
 }
 
 ?>

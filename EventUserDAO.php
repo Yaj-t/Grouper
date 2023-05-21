@@ -33,17 +33,26 @@ class EventUserDAO {
 
   // Get the list of all events for a user
   public function getEventsByUser($user_id) {
-    $stmt = $this->conn->prepare("SELECT * FROM event_users WHERE user_id = ?");
+    $stmt = $this->conn->prepare("SELECT * FROM event_users INNER JOIN events ON event_users.event_id = events.id WHERE event_users.user_id = ?");
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
     $result = $stmt->get_result();
     $events = array();
     while ($row = $result->fetch_assoc()) {
-      $events[] = $row['event_id'];
+        $event = new Event(
+            $row['id'],
+            $row['host'],
+            $row['name'],
+            $row['description'],
+            $row['date'],
+            $row['location']
+        );
+        $events[] = $event;
     }
     $stmt->close();
     return $events;
-  }
+}
+
 
   // Remove a row from the event_users table
   public function removeEventUser($event_id, $user_id) {

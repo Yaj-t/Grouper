@@ -8,6 +8,11 @@ session_start();
 $eventDAO = new EventDAO();
 $eventUserDAO = new EventUserDAO();
 $user = unserialize($_SESSION['user']);
+
+if (!isset($_SESSION['user'])) {
+    header("Location: login.php");
+    exit;
+}
 // Check if the search query is submitted
 if (isset($_GET['event'])) {
     // Get the search query from the user
@@ -48,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['joinEvent'])) {
         </form>
     </div>
 
-    <div id="contents">
+    <div id="contents">x
         <?php if (isset($_GET['event'])): ?>
             <h2 class="glow">Search Results</h2>
             <?php if (empty($searchResults)): ?>
