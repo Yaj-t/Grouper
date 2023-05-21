@@ -26,27 +26,9 @@ if (isset($_GET['event'])) {
     <link href="styles.css" rel="stylesheet">
 </head>
 <body>
-    <div id="header">
-        <div id="nav">
-            <div id="events" class="navBar">
-                <a class="glow" href="login.php">Event List</a>
-                &nbsp;
-                <a class="glow" href="login.php">Plan Event</a>
-            </div>
-            &nbsp;
-            <div id="info" class="navBar">
-                <a class="glow" href="faq.html">FAQ</a>
-                &nbsp;
-                <a class="glow" href="about.html">About</a>
-            </div>
-            &nbsp;
-            <div id="login" class="navBar">
-                <a class="glow" href="login.php">Log in</a>
-                <a class="glow" href="sign up.php">Sign up</a>
-                
-            </div>
-        </div>
-    </div>
+    <?php
+        include 'notInHeader.html';
+    ?>
     <div id="body"> 
         <p id="title" class="glow">Groupr</p>
         <form name="search" method="get" action="index.php">

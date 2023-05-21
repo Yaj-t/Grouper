@@ -88,7 +88,7 @@ class EventDAO {
         $stmt->close();
         return $events;
     }
-    
+
     
 }
 

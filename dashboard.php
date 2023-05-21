@@ -1,9 +1,13 @@
 <?php
 require_once 'EventDAO.php';
+require_once 'EventUserDAO.php';
+require_once 'User.php';
+require_once 'Event.php';
 
-// Create an instance of EventDAO
+session_start();
 $eventDAO = new EventDAO();
-
+$eventUserDAO = new EventUserDAO();
+$user = unserialize($_SESSION['user']);
 // Check if the search query is submitted
 if (isset($_GET['event'])) {
     // Get the search query from the user
@@ -14,6 +18,13 @@ if (isset($_GET['event'])) {
 } else {
     // Default empty search results
     $searchResults = [];
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['joinEvent'])) {
+    $eventId = $_POST['eventId'];
+    
+    // Add the user to the event
+    $eventUserDAO->joinEvent($eventId, $user->getId());
 }
 ?>
 <!DOCTYPE html>
@@ -26,25 +37,9 @@ if (isset($_GET['event'])) {
     <link href="styles.css" rel="stylesheet">
 </head>
 <body>
-    <div id="header">
-        <div id="nav">
-            <div id="events" class="navBar">
-                <a class="glow" href="eventpage.php">Event List</a>
-                &nbsp;
-                <a class="glow" href="addEvent.php">Plan Event</a>
-            </div>
-            &nbsp;
-            <div id="info" class="navBar">
-                <a class="glow" href="faq.html">FAQ</a>
-                &nbsp;
-                <a class="glow" href="about.html">About</a>
-            </div>
-            &nbsp;
-            <div id="login" class="navBar">
-                <a class="glow" href="logout.php">Log out</a>
-            </div>
-        </div>
-    </div>
+    <?php       
+        include 'inHeader.html';
+    ?>
     <div id="body"> 
         <p id="title" class="glow">Groupr</p>
         <form name="search" method="get" action="dashboard.php">
@@ -59,19 +54,26 @@ if (isset($_GET['event'])) {
             <?php if (empty($searchResults)): ?>
                 <p class="glow">No results found.</p>
             <?php else: ?>
-                <ul>
+                <div class="event-list">
                     <?php foreach ($searchResults as $event): ?>
-                        <li>
-                            <strong class="glow">Event ID:</strong> <?php echo $event->getId(); ?><br>
-                            <strong class="glow">Host:</strong> <?php echo $event->getHost(); ?><br>
-                            <strong class="glow">Name:</strong> <?php echo $event->getName(); ?><br>
-                            <strong class="glow">Description:</strong> <?php echo $event->getDescription(); ?><br>
-                            <strong class="glow">Date:</strong> <?php echo $event->getDate(); ?><br>
-                            <strong class="glow">Location:</strong> <?php echo $event->getLocation(); ?><br>
-                        </li>
-                        <br>
+                        <div class="event">
+                            <h3><?php echo $event->getName(); ?></h3>
+                            <p><?php echo $event->getDescription(); ?></p>
+                            <p>Date: <?php echo $event->getDate(); ?></p>
+                            <p>Location: <?php echo $event->getLocation(); ?></p>
+                            <?php if ($event->getHost() === $user->getId()): ?>
+                                <p>You are the host of this event.</p>
+                            <?php elseif (!$eventUserDAO->isUserJoined($event->getId(), $user->getId())): ?>
+                                <form method="post">
+                                    <input type="hidden" name="eventId" value="<?php echo $event->getId(); ?>">
+                                    <button type="submit" name="joinEvent">Join</button>
+                                </form>
+                            <?php else: ?>
+                                <p>You have joined this event.</p>
+                            <?php endif; ?>
+                        </div>
                     <?php endforeach; ?>
-                </ul>
+                </div>
             <?php endif; ?>
         <?php endif; ?>
     </div>

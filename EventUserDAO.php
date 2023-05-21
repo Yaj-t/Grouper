@@ -52,5 +52,25 @@ class EventUserDAO {
     $stmt->execute();
     $stmt->close();
   }
+
+  public function isUserJoined($event_id, $user_id) {
+    $stmt = $this->conn->prepare("SELECT * FROM event_users WHERE event_id = ? AND user_id = ?");
+    $stmt->bind_param("ii", $event_id, $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $count = $result->num_rows;
+    $stmt->close();
+    return $count > 0;
+  }
+
+  public function joinEvent($event_id, $user_id) {
+    if (!$this->isUserJoined($event_id, $user_id)) {
+      $this->addEventUser($event_id, $user_id);
+      return true;
+    }
+    return false;
+  }
+  
+  
 }
 ?>
